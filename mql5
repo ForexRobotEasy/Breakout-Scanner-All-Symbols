@@ -1,0 +1,152 @@
+
+//+------------------------------------------------------------------+
+//|                                                    Breakout Scanner All Symbols |
+//|                                       https://www.forexroboteasy.com |
+//|                                                             Forex Robot Easy Team |
+//|                                                https://www.forexroboteasy.com/breakout-scanner |
+//+------------------------------------------------------------------+
+
+// Global Variables
+datetime lastCheckTime = 0; // variable to store the last time the breakout scanner was checked
+
+//+------------------------------------------------------------------+
+//|                                                                  |
+//|                                                                  |
+//|                Breakout Scanner Function                         |
+//|                                                                  |
+//|                                                                  |
+//+------------------------------------------------------------------+
+void BreakoutScanner()
+{
+   // Check if it's time to scan for breakouts
+   if (TimeCurrent() - lastCheckTime >= 3600) // Check every hour
+   {
+      // Loop through all symbols
+      for (int i = 0; i < SymbolsTotal(); i++)
+      {
+         string symbol = SymbolName(i, false); // Get the symbol name
+         
+         // Get the resistance and support levels for the symbol
+         double resistance = GetResistanceLevel(symbol);
+         double support = GetSupportLevel(symbol);
+         
+         // Check for breakouts
+         double currentPrice = SymbolInfoDouble(symbol, SYMBOL_LAST);
+         if (currentPrice > resistance)
+         {
+            // Breakout from top, send a buy signal or close sell positions
+            SendBuySignal(symbol);
+            CloseSellPositions(symbol);
+         }
+         else if (currentPrice < support)
+         {
+            // Breakout from bottom, send a sell signal or close buy positions
+            SendSellSignal(symbol);
+            CloseBuyPositions(symbol);
+         }
+      }
+      
+      lastCheckTime = TimeCurrent(); // Update the last check time
+   }
+}
+
+//+------------------------------------------------------------------+
+//|                                                                  |
+//|                                                                  |
+//|                Breakout Analysis Function                         |
+//|                                                                  |
+//|                                                                  |
+//+------------------------------------------------------------------+
+void BreakoutAnalysis(string symbol)
+{
+   // Perform analysis for the identified breakout
+   // Implement logic to analyze factors such as volume, market trends, and historical data
+   // Assess the strength and potential impact of the breakout
+   // Provide relevant information and recommendations
+}
+
+//+------------------------------------------------------------------+
+//|                                                                  |
+//|                                                                  |
+//|                Trade Execution Functions                          |
+//|                                                                  |
+//|                                                                  |
+//+------------------------------------------------------------------+
+void SendBuySignal(string symbol)
+{
+   // Implement code to send a buy signal for the specified symbol
+}
+
+void SendSellSignal(string symbol)
+{
+   // Implement code to send a sell signal for the specified symbol
+}
+
+void CloseSellPositions(string symbol)
+{
+   // Implement code to close all sell positions for the specified symbol
+}
+
+void CloseBuyPositions(string symbol)
+{
+   // Implement code to close all buy positions for the specified symbol
+}
+
+//+------------------------------------------------------------------+
+//|                                                                  |
+//|                                                                  |
+//|                User Interface Functions                           |
+//|                                                                  |
+//|                                                                  |
+//+------------------------------------------------------------------+
+void DisplayBreakouts()
+{
+   // Implement code to display identified breakouts and relevant analysis
+}
+
+void CustomizeSettings()
+{
+   // Implement code to provide options for customizing settings and preferences
+}
+
+//+------------------------------------------------------------------+
+//|                                                                  |
+//|                                                                  |
+//|                Expert Advisor Start Function                      |
+//|                                                                  |
+//|                                                                  |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+   // Perform any necessary initialization tasks
+   
+   return(INIT_SUCCEEDED);
+}
+
+void OnTick()
+{
+   // Continuously check for breakouts
+   BreakoutScanner();
+}
+
+void OnDeinit(const int reason)
+{
+   // Perform any necessary cleanup tasks
+}
+
+//+------------------------------------------------------------------+
+//|                                                                  |
+//|                                                                  |
+//|                Additional Functions                               |
+//|                                                                  |
+//|                                                                  |
+//+------------------------------------------------------------------+
+double GetResistanceLevel(string symbol)
+{
+   // Implement code to calculate and return the resistance level for the specified symbol
+}
+
+double GetSupportLevel(string symbol)
+{
+   // Implement code to calculate and return the support level for the specified symbol
+}
